@@ -1,14 +1,25 @@
 import { Accordion, Button } from 'react-bootstrap'
 
+const styles = {
+  quantityText: {
+    color: 'red'
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
+  }
+}
+
 function App() {
   return (
     <div className="App">
       <h1>Fastweigh-Admin</h1>
       <Accordion alwaysOpen>
         <Accordion.Item eventKey="0">
-          <Accordion.Header>Apple&nbsp;<span style={{color: 'red' }}>(8)</span></Accordion.Header>
+          <Accordion.Header>Apple&nbsp;<span style={styles.quantityText}>(8)</span></Accordion.Header>
           <Accordion.Body>
-            <div>
+            <div style={styles.buttons}>
               <Button variant="primary">Add</Button>
               <Button variant="primary">Edit</Button>
               <Button variant="danger">Delete</Button>
