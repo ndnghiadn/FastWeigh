@@ -1,6 +1,11 @@
 import { Accordion, Button } from 'react-bootstrap'
 
 const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
   quantityText: {
     color: 'red'
   },
@@ -8,14 +13,25 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center'
+  },
+  badge: {
+    margin: '30px 0'
+  },
+  accordion: {
+    width: 'min(600px, 100%)'
+  },
+  price: {
+    float: 'right',
+    color: 'red',
+    textDecoration: 'underline'
   }
 }
 
 function App() {
   return (
-    <div className="App">
-      <h1>Fastweigh-Admin</h1>
-      <Accordion alwaysOpen>
+    <div style={styles.container}>
+      <h1 style={styles.badge}>Fastweigh-Admin</h1>
+      <Accordion alwaysOpen style={styles.accordion}>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Apple&nbsp;<span style={styles.quantityText}>(8)</span></Accordion.Header>
           <Accordion.Body>
@@ -24,19 +40,7 @@ function App() {
               <Button variant="primary">Edit</Button>
               <Button variant="danger">Delete</Button>
             </div>
-            <span>Price: 18.200/kg</span>
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="1">
-          <Accordion.Header>Accordion Item #2</Accordion.Header>
-          <Accordion.Body>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-            est laborum.
+            <span style={styles.price}>Gia tien: 18.200/kg</span>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
