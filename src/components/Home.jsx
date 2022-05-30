@@ -1,25 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Badge, Button, FormControl, InputGroup, Alert } from 'react-bootstrap'
 import Header from './Header'
+import axios from 'axios'
 
 const Home = () => {
     const [visibleTrack, setVisibleTrack] = useState(false)
     const [following, setFollowing] = useState(false)
     const [purchasing, setPurchasing] = useState(false)
-    const [products, setProducts] = useState([
-        {
-            name: 'Apple',
-            weight: 2.68,
-            price: 19800,
-            image: 'https://dictionary.cambridge.org/vi/images/thumb/apple_noun_001_00650.jpg?version=5.0.243'
-        },
-        {
-            name: 'Banana',
-            weight: 1.98,
-            price: 12800,
-            image: 'https://us.123rf.com/450wm/nikitos77/nikitos771205/nikitos77120500769/13739513-ripe-bananas-on-a-white-background.jpg?ver=6'
-        }
-    ])
+    const [products, setProducts] = useState([])
+    const [billId, setBillId] = useState()
 
     const calculate = () => {
         let totalPrice = 0
@@ -28,6 +17,25 @@ const Home = () => {
         })
         return totalPrice
     }
+
+    const handleTrack = () => {
+            setFollowing(true)
+    }
+
+    useEffect(() => {
+        
+        if (following && billId) {
+            const getBillInterval = setInterval(async () => {
+                const bill = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/bill/${billId}`)
+                if (bill.status === 200 && bill.data[0]) {
+                    // set products
+                }
+            }, 1000)
+            return () => {
+                clearInterval(getBillInterval)
+            }
+        }
+    }, [following, billId])
 
   return (
     <>
@@ -42,14 +50,15 @@ const Home = () => {
                             placeholder="Bill ID"
                             aria-label="Bill ID"
                             aria-describedby="btnGroupAddon"
+                            onChange={(e) => setBillId(e.target.value)}
                         />
                     </InputGroup>
-                    <Button variant="primary" onClick={() => setFollowing(true)}>Track</Button>
+                    <Button variant="primary" onClick={handleTrack}>Track</Button>
                     {
                         following && (
                             <>
                                 <Alert key="primary" variant="primary" id="TrackBoard">
-                                    <h6>{purchasing ? 'Purchasing Bill #123' : 'Following...'}</h6><br></br>
+                                    <h6>{purchasing ? `Purchasing Bill #${billId}` : 'Following...'}</h6><br></br>
                                     {
                                         purchasing ? (
                                             <>
@@ -57,7 +66,7 @@ const Home = () => {
                                                 <ul>
                                                     {
                                                         products.map((product, index) => (
-                                                            <li>{product.name} | {product.weight} kg | {product.price} VND/KG<h6><span style={{ color: 'green' }}>{product.weight * product.price}</span> đồng</h6></li>
+                                                            <li key={index}>{product.name} | {product.weight} kg | {product.price} VND/KG<h6><span style={{ color: 'green' }}>{product.weight * product.price}</span> đồng</h6></li>
                                                         ))
                                                     }
                                                 </ul>
