@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+@import "./styles/libs";
+@import "./styles/header";
+@import "./styles/form";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+.Home--container {
+    position: relative;
+    background-color: white;
+    margin: 0 auto;
+    padding: 3em 20px;
+    width: min(600px, 100%);
+    height: calc(100vh - $header-height);
+
+    & > Button {
+        display: block;
+        margin: 2em auto;
+    }
+}
+
+#TrackBoard {
+    max-height: 50vh;
+    padding: 2em 2em;
+    overflow-y: auto;
+
+    h4 {
+        color: black;
+    }
+
+    img {
+        width: 40%;
+    }
+
+    .item {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 3em 0;
+        width: 100%;
+        border: 2px dashed #333;
+
+        .info > div {
+            display: flex;
+        }
+
+        p {
+            color: black;
+        }
+
+        h5 {
+            color: yellowgreen;
+        }
+
+        span {
+            color: green;
+            font-weight: 500;
+        }
+    }
+
+    li {
+        color: black;
+    }
+}
+
+.Admin--container {
+    width: min(600px, 100%);
+    height: calc(100vh - $header-height);
+    margin: 0 auto;
+    padding: 100px 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Main--container {
+    width: 100%;
+    background-color: #333;
+    overflow-y: auto;
+    margin-top: 50vh;
+
+    .accordion {
+        width: min(600px, 100%);
+    }
+
+    .btn {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .price {
+        float: right;
+        color: red;
+        text-decoration: underline;
+    }
+
+    .quantityTxt {
+        color: red;
+    }
+}
