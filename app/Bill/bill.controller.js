@@ -7,7 +7,7 @@ const findById = async (req, res, next) => {
     try {
         var id = req.params.id
         var rs = await billmodel.find({ _id: id }).populate({
-            'path': 'Fruits',
+            'path': 'LisFruits',
             'populate': {
                 'path': 'idfruit'
             }
@@ -30,15 +30,17 @@ const findByCode = async (req, res, next) => {
 
     try {
         var code = req.params.code
-        var rs = await billmodel.findOne({ code }).populate('LisFruits.idfruit')
+        var rs = await billmodel.findOne({ code }).populate('LisFruits.idfruit').then(rs => {
+            if (rs) {
+                res.json(rs);
+            } else {
+                res.status(404).json({
+                    message: "bill not found"
+                })
+            }
+        })
 
-        if (rs) {
-            res.json(rs);
-        } else {
-            res.status(404).json({
-                message: "bill not found"
-            })
-        }
+
     }
     catch (err) {
         res.status(500).json({
