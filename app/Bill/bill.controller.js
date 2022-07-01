@@ -30,7 +30,7 @@ const findByCode = async (req, res, next) => {
 
     try {
         var code = req.params.code
-        var rs = await billmodel.findOne({ code }).populate('LisFruits.idfruit').then(rs => {
+        var rs = await billmodel.findOne({ _code: code }).populate('LisFruits.idfruit').then(rs => {
             if (rs) {
                 res.json(rs);
             } else {
@@ -80,14 +80,7 @@ const add = async (req, res, next) => {
         message: "add bill thanh cong"
     })
 }
-const update = async (req, res, next) => {
-    await billmodel.findByIdAndUpdate(req.params.id, {
-        $inc: {
 
-        }
-    })
-
-}
 const findall = async (req, res, next) => {
     try {
         var rs = await billmodel.find({})
