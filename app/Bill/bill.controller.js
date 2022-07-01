@@ -6,10 +6,10 @@ const findById = async (req, res, next) => {
 
     try {
         var id = req.params.id
-        var rs = await billmodel.find({ _id: id }).populate("user", "username").populate({
+        var rs = await billmodel.find({ _id: id }).populate({
             'path': 'Fruits',
             'populate': {
-                'path': 'idFruit'
+                'path': 'idfruit'
             }
         })
         if (rs) {
@@ -31,7 +31,7 @@ const findByCode = async (req, res, next) => {
     try {
         var code = req.params.code
         var rs = await billmodel.findOne({ code }).populate('LisFruits.idfruit')
-        
+
         if (rs) {
             res.json(rs);
         } else {
@@ -105,4 +105,4 @@ const findall = async (req, res, next) => {
 }
 
 
-module.exports = { findById, getTotalById, add, findall,findByCode }
+module.exports = { findById, getTotalById, add, findall, findByCode }
