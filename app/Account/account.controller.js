@@ -62,6 +62,21 @@ const getById = async (req, res, next) => {
             })
         })
 }
+const update = async (req, res, next) => {
+    var id = req.params.id;
+    var password = req.body.password;
+    var role = req.body.role;
+    await accountmodel.findByIdAndUpdate(id, {
+        password: password,
+        role: role
+    })
+        .then(data => {
+            res.json({ message: "update account successfully" })
+        })
+        .catch(err => {
+            res.status(500).json({ message: "server error" })
+        })
+}
 const Delete = async (req, res, next) => {
     var id = req.params.id;
     await accountmodel.deleteOne({ _id: id })
